@@ -1,0 +1,167 @@
+const challenges = [
+  {
+    id: 1,
+    title: "Where is this café?",
+    difficulty: "Easy",
+    points: 50,
+    technique: "Visual clues / signage",
+    question: "What suburb is this café located in?",
+    answer: "Burleigh Heads",
+    image: "Image placeholder",
+    metadata: "",
+    hint: "Focus on the signboard and street sign.",
+    clues: [
+      "Signboard: Sunny Beans Café",
+      "Street sign: Burleigh Heads"
+    ]
+  },
+  {
+    id: 2,
+    title: "Spot the country",
+    difficulty: "Easy",
+    points: 50,
+    technique: "Language recognition",
+    question: "Which country is this likely taken in?",
+    answer: "Germany",
+    image: "Image placeholder",
+    metadata: "",
+    hint: "Look at the language used on the signs.",
+    clues: [
+      "Street image with German signboards"
+    ]
+  },
+  {
+    id: 3,
+    title: "Real or fake business?",
+    difficulty: "Easy-Moderate",
+    points: 75,
+    technique: "Business verification",
+    question: "Is this business likely real or fake?",
+    answer: "Fake",
+    image: "Website placeholder",
+    metadata: "",
+    hint: "Check whether the business has a believable online presence.",
+    clues: [
+      "Website: www.quickfixelectronics24.com",
+      "Suspicious phone number",
+      "No reviews / no Google presence"
+    ]
+  },
+  {
+    id: 4,
+    title: "Which station did Alex leave from?",
+    difficulty: "Easy-Moderate",
+    points: 75,
+    technique: "Transport OSINT",
+    question: "Which station did Alex depart from?",
+    answer: "Southport Station",
+    image: "Timetable placeholder",
+    metadata: "",
+    hint: "Use the platform number and departure time carefully.",
+    clues: [
+      "Train timetable screenshot",
+      "Platform number: 3",
+      "Time: 08:32"
+    ]
+  },
+  {
+    id: 5,
+    title: "When was this photo taken?",
+    difficulty: "Moderate",
+    points: 100,
+    technique: "Shadow analysis",
+    question: "Was this taken in the morning, afternoon, or evening?",
+    answer: "Evening",
+    image: "Photo placeholder",
+    metadata: "",
+    hint: "Think about what long shadows and low sun usually mean.",
+    clues: [
+      "Long shadows",
+      "Low sun"
+    ]
+  },
+  {
+    id: 6,
+    title: "Find the hidden location",
+    difficulty: "Moderate",
+    points: 100,
+    technique: "Geolocation clues",
+    question: "Which beach is this?",
+    answer: "Surfers Paradise Beach",
+    image: "Beach image placeholder",
+    metadata: "",
+    hint: "Use all small location clues together.",
+    clues: [
+      "Beach",
+      "Lifeguard tower number: 14",
+      "Partial sign: Surfers..."
+    ]
+  },
+  {
+    id: 7,
+    title: "EXIF truth check",
+    difficulty: "Moderate-Hard",
+    points: 125,
+    technique: "Metadata analysis",
+    question: "Is the caption true or false?",
+    answer: "False",
+    image: "Metadata screenshot placeholder",
+    metadata: "Date: 2026:03:10 | Time: 11:25:14 | Location: Brisbane",
+    hint: "Compare the caption with the metadata time.",
+    clues: [
+      "Caption: Beautiful sunset"
+    ]
+  },
+  {
+    id: 8,
+    title: "Cross-source verification",
+    difficulty: "Moderate-Hard",
+    points: 125,
+    technique: "Multi-source validation",
+    question: "Is the claim reliable?",
+    answer: "False",
+    image: "Post and article placeholder",
+    metadata: "",
+    hint: "Look for contradictions between sources.",
+    clues: [
+      "Social media post says: Concert happened yesterday",
+      "News article says: event scheduled next week"
+    ]
+  },
+  {
+    id: 9,
+    title: "Trace the identity",
+    difficulty: "Hard",
+    points: 150,
+    technique: "Multi-step OSINT",
+    question: "Which city does this person most likely live in?",
+    answer: "Sydney",
+    image: "Profile screenshot placeholder",
+    metadata: "",
+    hint: "Combine the bio and profile image clue.",
+    clues: [
+      "Username: travel_guru_92",
+      "Bio: Sydney | Coffee lover",
+      "Profile photo shows Opera House reflection"
+    ]
+  },
+  {
+    id: 10,
+    title: "Full investigation challenge",
+    difficulty: "Hard",
+    points: 200,
+    technique: "Combined OSINT",
+    question: "Identify the exact business name AND suburb.",
+    answer: "Green Leaf Café, Fitzroy",
+    image: "Investigation image placeholder",
+    metadata: "Metadata: Melbourne",
+    hint: "Use the image, metadata, and review snippet together.",
+    clues: [
+      "Image of a person in front of a shop",
+      "Shop name partially visible",
+      "Google review snippet"
+    ]
+  }
+];
+
+export default challenges;
