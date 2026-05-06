@@ -1,11 +1,18 @@
 from data import challenges
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask import send_from_directory
+import os
+
+
 
 app = Flask(__name__)
 
 CORS(app)
 
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), filename)
 
 @app.route("/")
 def home():
@@ -43,10 +50,11 @@ def submit_answer():
             is_correct = user_answer.strip().lower() == correct_answer.strip().lower()
 
             return jsonify({
-                "correct": is_correct,
-                "correctAnswer": correct_answer,
-                "message": "Correct answer! Well done." if is_correct else "Incorrect answer."
-            })
+    "correct": is_correct,
+    "correctAnswer": correct_answer,
+    "pointsEarned": challenge["points"] if is_correct else 0,
+    "message": "Correct answer! Well done." if is_correct else "Incorrect answer."
+})
 
     return jsonify({"error": "Challenge not found"}), 404
 

@@ -8,10 +8,10 @@ function Challenge() {
 
   const [challenge, setChallenge] = useState(null);
   const [answer, setAnswer] = useState("");
-  const [reasoning, setReasoning] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
   const [resultClass, setResultClass] = useState("");
+  const [attemptsLeft, setAttemptsLeft] = useState(3);
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5007/api/challenges/${id}`)
@@ -38,30 +38,33 @@ function Challenge() {
   };
 
   const handleSubmit = () => {
-  fetch("http://127.0.0.1:5007/api/submit-answer", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      challengeId: challenge.id,
-      answer: answer,
-      reasoning: reasoning,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.correct) {
-        setResultMessage(data.message);
-        setResultClass("result-box correct");
-      } else {
-        setResultMessage(`${data.message} Correct answer: ${data.correctAnswer}`);
-        setResultClass("result-box incorrect");
-      }
-    })
-    .catch((err) => console.error(err));
-};
+  if (attemptsLeft <= 0) {
+    setResultMessage("No attempts left. Please move to the next challenge.");
+    setResultClass("result-box incorrect");
+    return;
+  }
 
+  const cleanedUserAnswer = answer.trim().toLowerCase();
+  const cleanedCorrectAnswer = challenge.answer.trim().toLowerCase();
+
+  if (cleanedUserAnswer === cleanedCorrectAnswer) {
+    setResultMessage("✅ Correct answer! Well done.");
+    setResultClass("result-box correct");
+  } else {
+    const remaining = attemptsLeft - 1;
+    setAttemptsLeft(remaining);
+
+    if (remaining > 1) {
+      setResultMessage(`❌ Incorrect. Try again (${remaining} attempts left)`);
+    } else if (remaining === 1) {
+      setResultMessage("⚠️ Incorrect. Last attempt remaining!");
+    } else {
+      setResultMessage("❌ No attempts left. Better luck next time.");
+    }
+
+    setResultClass("result-box incorrect");
+  }
+};
   return (
     <div className="challenge-page">
       <button className="back-button" onClick={() => navigate("/dashboard")}>
@@ -87,12 +90,27 @@ function Challenge() {
         <p>{challenge.question}</p>
       </div>
 
-      <div className="image-placeholder-box">
-        <h3>Image / Evidence</h3>
-        <div className="image-placeholder">
-          <p>{challenge.image || "Image placeholder"}</p>
-        </div>
-      </div>
+     <div className="image-placeholder">
+  {challenge.image ? (
+    <>
+      <img
+        src={challenge.image}
+        alt={challenge.title}
+        className="challenge-image"
+      />
+
+      <a
+        href={challenge.image}
+        download
+        className="download-button"
+      >
+        Download Image
+      </a>
+    </>
+  ) : (
+    <p>Image placeholder</p>
+  )}
+</div>
 
       {challenge.metadata && (
         <div className="metadata-box">
@@ -141,12 +159,7 @@ function Challenge() {
           onChange={(e) => setAnswer(e.target.value)}
         />
 
-        <textarea
-          placeholder="Explain your reasoning"
-          value={reasoning}
-          onChange={(e) => setReasoning(e.target.value)}
-          rows="6"
-        ></textarea>
+
 
         <button onClick={handleSubmit}>Submit Answer</button>
       </div>
@@ -160,4 +173,4 @@ function Challenge() {
   );
 }
 
-export default Challenge;
+export default Challenge; 
